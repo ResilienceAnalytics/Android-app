@@ -18,10 +18,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var participant2: EditText
     private lateinit var submitButton: Button
 
+    private lateinit var receivePassword: EditText
+    private lateinit var receiveParticipant1: EditText
+    private lateinit var receiveParticipant2: EditText
+    private lateinit var receiveButton: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initialize submit transaction UI elements
         transactionAmount = findViewById(R.id.transactionAmount)
         password = findViewById(R.id.password)
         participant1 = findViewById(R.id.participant1)
@@ -40,18 +46,37 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // Initialize receive transaction UI elements
+        receivePassword = findViewById(R.id.receivePassword)
+        receiveParticipant1 = findViewById(R.id.receiveParticipant1)
+        receiveParticipant2 = findViewById(R.id.receiveParticipant2)
+        receiveButton = findViewById(R.id.receiveButton)
+
+        receiveButton.setOnClickListener {
+            val pass = receivePassword.text.toString()
+            val part1 = receiveParticipant1.text.toString()
+            val part2 = receiveParticipant2.text.toString()
+
+            if (pass.isNotEmpty() && part1.isNotEmpty() && part2.isNotEmpty()) {
+                receiveTransaction(pass, part1, part2)
+            } else {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun submitTransaction(amount: Int, password: String, participant1: String, participant2: String) {
         val client = OkHttpClient()
-        val url = "107.172.140.130:5000/submit_transaction"
+        val url = "http://your_server_address/submit_transaction" // Replace with your server URL
 
-        val json = JSONObject()
-        json.put("transaction_amount", amount)
-        json.put("password", password)
-        json.put("participants", listOf(participant1, participant2))
+        val json = JSONObject().apply {
+            put("transaction_amount", amount)
+            put("password", password)
+            put("participants", listOf(participant1, participant2))
+        }
 
-        val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString())
+        val body = RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toString())
 
         val request = Request.Builder()
             .url(url)
@@ -77,4 +102,16 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-}
+
+    private fun receiveTransaction(password: String, participant1: String, participant2: String) {
+        val client = OkHttpClient()
+        val url = "http://your_server_address/receive_transaction" // Replace with your server URL
+
+        val json = JSONObject().apply {
+            put("password", password)
+            put("participants", listOf(participant1, participant2))
+        }
+
+        val body = RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toString())
+
+        val request =
