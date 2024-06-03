@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun submitTransaction(amount: Int, password: String, participant1: String, participant2: String) {
         val client = OkHttpClient()
-        val url = "http://your_server_address/submit_transaction" // Replace with your server URL
+        val url = "http://107.172.140.130:5000/submit_transaction" 
 
         val json = JSONObject().apply {
             put("transaction_amount", amount)
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun receiveTransaction(password: String, participant1: String, participant2: String) {
         val client = OkHttpClient()
-        val url = "http://your_server_address/receive_transaction" // Replace with your server URL
+        val url = "http://107.172.140.130:5000/receive_transaction" 
 
         val json = JSONObject().apply {
             put("password", password)
