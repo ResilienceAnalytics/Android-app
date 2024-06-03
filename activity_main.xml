@@ -6,6 +6,15 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- Section for submitting transactions -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit Transaction"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp"/>
+
     <EditText
         android:id="@+id/transactionAmount"
         android:layout_width="match_parent"
@@ -37,4 +46,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit" />
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#CCCCCC"
+        android:paddingVertical="16dp" />
+
+    <!-- Section for receiving transactions -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Receive Transaction"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/receivePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/receiveParticipant1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Participant 1" />
+
+    <EditText
+        android:id="@+id/receiveParticipant2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Participant 2" />
+
+    <Button
+        android:id="@+id/receiveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Receive" />
 </LinearLayout>
