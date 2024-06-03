@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun submitTransaction(amount: Int, password: String, participant1: String, participant2: String) {
         val client = OkHttpClient()
-        val url = "http://your_server_address/submit_transaction"
+        val url = "107.172.140.130:5000/submit_transaction"
 
         val json = JSONObject()
         json.put("transaction_amount", amount)
