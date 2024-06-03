@@ -114,4 +114,29 @@ class MainActivity : AppCompatActivity() {
 
         val body = RequestBody.create(MediaType.get("application/json; charset=utf-8"), json.toString())
 
-        val request =
+        val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                runOnUiThread {
+                    Toast.makeText(this@MainActivity, "Request failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body()?.string()
+                runOnUiThread {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@MainActivity, "Transaction received successfully", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this@MainActivity, "Error: $responseBody", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
+    }
+}
+
